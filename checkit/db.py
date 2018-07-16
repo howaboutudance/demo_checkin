@@ -1,6 +1,6 @@
 import psycopg2 as pg
 
-from flask import current_app. g
+from flask import current_app, g
 
 def init_app(app):
     app.teardown_appcontext(close_db)
