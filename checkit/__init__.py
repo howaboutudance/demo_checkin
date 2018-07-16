@@ -22,6 +22,4 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     from . import api
     app.register_blueprint(api.bp)
-    from . import gui 
-    app.register_blueprint(gui.bp)
     return app

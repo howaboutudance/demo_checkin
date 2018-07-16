@@ -95,11 +95,14 @@ def tag_one(entity, fields, rec):
     if not rec:
         return(jsonify({"error":"404", "message":"no record found"}), 404)
 
-    return(jsonify({entity: dict(zip(fields, rec))}), 200)
+    reponse = jsonify({entity: dict(zip(fields, rec))})
+    return(response, 200)
 
 def tag_many(entity, fields, recs, message="record not found"):
     if len(recs) == 0:
         return (jsonify({"error":"404", "message":message}),404)
 
-    return (jsonify({entity:[dict(zip(fields, x)) for x in recs]}), 200)
+    response = jsonify({entity:[dict(zip(fields, x)) for x in recs]})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return(response, 200)
 
