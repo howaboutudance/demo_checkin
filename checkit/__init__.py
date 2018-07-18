@@ -21,6 +21,10 @@ def create_app(test_config=None):
 
     from . import auth
     app.register_blueprint(auth.bp)
-    from . import api
-    app.register_blueprint(api.bp)
+    from . import apiStudent
+    app.register_blueprint(apiStudent.bp)
+    from . import apiSession
+    app.register_blueprint(apiSession.bp)
+    from . import apiSchedule
+    app.register_blueprint(apiSchedule.bp)
     return app

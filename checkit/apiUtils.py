@@ -1,13 +1,5 @@
 from flask import jsonify, abort
 
-#errorhandlers
-@bp.errorhandler(404)
-def not_found(error):
-    return jsonify({"error": '404', "message": "file not found"}), 404
-
-@bp.errorhandler(405)
-def not_allowed(error):
-    return jsonify({"error":"405", "message": "method not allowed"}), 405
 
 #helper functions
 def matchfield(req, record):
@@ -22,7 +14,7 @@ def tag_one(entity, fields, rec):
     if not rec:
         return(jsonify({"error":"404", "message":"no record found"}), 404)
 
-    reponse = jsonify({entity: dict(zip(fields, rec))})
+    response = jsonify({entity: dict(zip(fields, rec))})
     return(response, 200)
 
 def tag_many(entity, fields, recs, message="record not found"):
