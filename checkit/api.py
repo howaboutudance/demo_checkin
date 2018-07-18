@@ -1,10 +1,11 @@
 from flask import flash, Blueprint, g, redirect, render_template, request, session, url_for, jsonify, abort
 from checkit.db import get_db
 import psycopg2 as pg
-bp  = Blueprint('api', __name__, url_prefix='/api/v1.0')
-
 from checkit.db import get_db
 
+bp  = Blueprint('api', __name__, url_prefix='/api/v1.0')
+
+# fields used to 
 student_fields = ["anum","firstName","lastName"]
 profile_fields = ["anum","preferredFirstName","firstName","lastName","pronoun"]
 schedule_fields = ["session_id","name","starttime","location","length"]
@@ -190,7 +191,7 @@ def tag_one(entity, fields, rec):
     if not rec:
         return(jsonify({"error":"404", "message":"no record found"}), 404)
 
-    reponse = jsonify({entity: dict(zip(fields, rec))})
+    response = jsonify({entity: dict(zip(fields, rec))})
     return(response, 200)
 
 def tag_many(entity, fields, recs, message="record not found"):
