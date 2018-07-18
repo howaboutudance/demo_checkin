@@ -1,6 +1,7 @@
 import os
 
 import pytest
+import checkit
 from checkit import create_app
 
 from flask import g
@@ -19,9 +20,16 @@ def init_db():
 @pytest.fixture
 def app():
     test_db = init_db()
+
+    cur = test_db.cursor()
+    with open(os.path.join(os.path.dirname(__file__), 'data.sql'), 'r') as f:
+        cur.execute(f.read())
+
+    test_db.commit()
+
     app = create_app({
         'TESTING': True,
-        'DATABASE': test_db()
+        'DATABASE': 'postgresql://checkincl:clrocks59@127.0.0.1:5432/checkit-testing'
     })
 
     yield app
@@ -30,7 +38,9 @@ def app():
 
 @pytest.fixture()
 def client(app):
-    return app.test_client
+    client = app.test_client()
+
+    yield client
 
 @pytest.fixture
 def runner(app):
