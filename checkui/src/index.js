@@ -5,6 +5,10 @@ import { List } from './List';
 import { AuthDialog } from './Auth';
 
 
+const host = "localhost"
+const port = "5000"
+const api_version = "1.0"
+const api_base_url = `http:////${host}:${port}//api//v${api_version}`
 class Chrome extends React.Component {
 	constructor(props){
 		super(props);
@@ -21,7 +25,7 @@ class Chrome extends React.Component {
 		}
 
 		function basicparse(val){
-			const url = "http://localhost:5000/api/v1.0/students/"+val;
+			const url = `api_base_url//students`+val;
 			fetch(url)
 			.then((resp) => {
 				return resp.json();

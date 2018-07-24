@@ -1,16 +1,31 @@
 import React from 'react';
 import './demo.css';
 
+const api_version = "1.0"
+const host = "localhost"
+const port = "5000"
+
+const api_base_url = `http:////${host}:${port}/api/v${api_version}`
 
 class List extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			rows: [], 
+			rows: [],
+			cells: Array(5).fill(null),
+		}
+		this.handleCheck = this.handleCheck.bind(this);
+	}
+	handleCheck(i){
+		const cells = this.state.cells.slice();
+		return () => {
+			cells[i] = (cells[i] === null) ? "X": null;
+			this.setState({cells: cells})
 		}
 	}
-	componentDidMount() {
-		fetch("http://localhost:5000/api/v1.0/students")
+	componentDidMount(){
+		let url = `${api_base_url}/students`
+		fetch(url)
 			.then( response => {
 				return response.json();
 			}).then( data => {
@@ -21,19 +36,10 @@ class List extends React.Component {
 		var rv = [];
 
 		for(var i = 0; i < this.state.rows.length; i++){
-			rv.push(<ListRow func={this.props.func} key={i} rowData={this.state.rows[i]} />);
+			rv.push(<ListRow clickFunc={this.handleCheck(i)} key={i} rowData={this.state.rows[i]} cell={this.state.cells[i]}/>);
 		}
 
 		return <div className="list">{rv}</div>
-	}
-}
-class Checkbox extends React.Component {
-	render(){
-		function handleClick(e) {
-			console.log('checkbox was clicked');
-
-		}
-		return <div className="checkbox" onClick={handleClick}></div>;
 	}
 }
 
@@ -41,7 +47,7 @@ function ListRow(props){
 	return(
 		<div className="row">
 			<span>
-				<Checkbox />
+				<div className="checkbox" onClick = {props.clickFunc}>{props.cell}</div>
 				<div onClick={() => props.func(props.rowData.anum)} className="cell">
 					{props.rowData.firstName} {props.rowData.lastName}
 				</div>
@@ -49,4 +55,5 @@ function ListRow(props){
 		</div>
 	)
 }
+
 export { List }
