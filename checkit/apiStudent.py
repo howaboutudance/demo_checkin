@@ -38,7 +38,7 @@ def post_student(anum):
         return jsonify({"error":"400","message":"duplicate key"}),400
 
     conn.commit()
-    return jsonify({'sucess':'ok'}), 201
+    return jsonify({'success':'ok'}), 201
 
 @bp.route('/<string:anum>', methods=["PUT","PATCH"])
 def put_students(anum):
@@ -50,7 +50,7 @@ def put_students(anum):
 
     cur.execute("update student set {0} where anum = {1}".format(qvalues, queryify(anum)))
     conn.commit()
-    v = {"sucess":"ok"}
+    v = {"success":"ok"}
     if 'anum' in js:
         v["anum"] = anum
 

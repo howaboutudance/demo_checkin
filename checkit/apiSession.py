@@ -41,7 +41,7 @@ def post_session(sessionid):
     except pg.IntegrityError:
         return jsonify({"error":"400","message":"duplicate key"}),400
 
-    return jsonify({"sucess":"ok"}), 201
+    return jsonify({"success":"ok"}), 201
 
 @bp.route("/<string:sessionid>",methods=["PUT","PATCH"])
 def put_session(sessionid):
@@ -65,7 +65,7 @@ def delete_session(sessionid):
         conn.commit()
     except pg.ProgrammingError:
         abort(404)
-    return jsonify({"sucess":"ok"}), 200
+    return jsonify({"success":"ok"}), 200
 
 @bp.route("", methods=["GET"])
 def get_sessions():
