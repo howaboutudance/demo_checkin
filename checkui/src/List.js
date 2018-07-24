@@ -5,7 +5,7 @@ const api_version = "1.0"
 const host = "localhost"
 const port = "5000"
 
-const api_base_url = `http:////${host}:${port}//api//v${api_version}`
+const api_base_url = `http:////${host}:${port}/api/v${api_version}`
 
 class List extends React.Component {
 	constructor(props){
@@ -15,7 +15,7 @@ class List extends React.Component {
 		}
 	}
 	componentDidMount() {
-		let url = `${api_base_url}//students`
+		let url = `${api_base_url}/students`
 		fetch(url)
 			.then( response => {
 				return response.json();
