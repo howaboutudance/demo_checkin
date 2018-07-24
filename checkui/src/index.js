@@ -16,14 +16,12 @@ class Chrome extends React.Component {
 		this.handleQuery = this.handleQuery.bind(this)
 	}
 	handleQuery(e){
-			console.log("in handlequery");
 			const url = `${api_base_url}/students/${e}`;
 			fetch(url)
 			.then((resp) => {
 				return resp.json();
 			})
 			.then((data) => {
-				console.log(data.student)
 				this.setState({query: JSON.stringify(data.student)})
 			});
 		}
