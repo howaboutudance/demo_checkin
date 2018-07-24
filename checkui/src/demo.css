@@ -34,6 +34,8 @@
 	padding: 3px 3px;
 }
 
-.profile > p {
-	word-wrap: break-word;
+.profile > textarea{
+	resize: none;
+	height:100%;
+	width:100%;
 }

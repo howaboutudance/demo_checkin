@@ -36,7 +36,7 @@ class List extends React.Component {
 		var rv = [];
 
 		for(var i = 0; i < this.state.rows.length; i++){
-			rv.push(<ListRow clickFunc={this.handleCheck(i)} key={i} rowData={this.state.rows[i]} cell={this.state.cells[i]}/>);
+			rv.push(<ListRow onQuery={this.props.onQuery} clickFunc={this.handleCheck(i)} key={i} rowData={this.state.rows[i]} cell={this.state.cells[i]}/>);
 		}
 
 		return <div className="list">{rv}</div>
@@ -45,10 +45,10 @@ class List extends React.Component {
 
 function ListRow(props){
 	return(
-		<div className="row">
+		<div className="row"> 
 			<span>
 				<div className="checkbox" onClick = {props.clickFunc}>{props.cell}</div>
-				<div onClick={() => props.func(props.rowData.anum)} className="cell">
+				<div className="cell" anum={props.rowData.anum} onClick = {() => props.onQuery(props.rowData.anum)}>
 					{props.rowData.firstName} {props.rowData.lastName}
 				</div>
 			</span>
