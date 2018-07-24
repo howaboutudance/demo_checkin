@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './demo.css';
 
-export { List }
 
 class List extends React.Component {
 	constructor(props){
@@ -51,3 +49,4 @@ function ListRow(props){
 		</div>
 	)
 }
+export { List }
