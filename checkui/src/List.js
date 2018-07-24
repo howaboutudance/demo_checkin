@@ -1,8 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './demo.css';
 
-export { List }
+const api_version = "1.0"
+const host = "localhost"
+const port = "5000"
+
+const api_base_url = `http:////${host}:${port}//api//v${api_version}`
 
 class List extends React.Component {
 	constructor(props){
@@ -12,7 +15,8 @@ class List extends React.Component {
 		}
 	}
 	componentDidMount() {
-		fetch("http://localhost:5000/api/v1.0/students")
+		let url = `${api_base_url}//students`
+		fetch(url)
 			.then( response => {
 				return response.json();
 			}).then( data => {
@@ -51,3 +55,5 @@ function ListRow(props){
 		</div>
 	)
 }
+
+export { List }
