@@ -17,7 +17,7 @@ def test_get_student(client):
 def test_add_student(client):
     rv = client.post("api/v1.0/students/A6", json={"firstName":"Michael","lastName":"FitzPatrick"})
     json_data = rv.get_json()
-    assert "sucess" in json_data
+    assert "success" in json_data
 
     getjson_data = client.get("api/v1.0/students").get_json()
 
@@ -38,7 +38,7 @@ def test_add_session(client):
     rv = client.post("/api/v1.0/sessions/1", json = {"name":"Orientation Seminar", "location":"SEM II B1105","starttime":datetime.now(), "length":2, "kind":"seminar"})
     json_data = rv.get_json()
 
-    assert "sucess" in json_data
+    assert "success" in json_data
 
     getjson_data = client.get("api/v1.0/sessions").get_json()
     assert "sessions" in getjson_data
