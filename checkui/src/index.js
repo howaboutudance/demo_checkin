@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './demo.css';
 import { List } from './List';
+import { Profile } from './Profile';
 
 const host = "localhost"
 const port = "5000"
@@ -39,22 +40,6 @@ class Chrome extends React.Component {
 	}
 }
 
-class Profile extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			profile: ""
-		}
-	}
-	componentDidMount() {
-	}
-	render() { 
-		return(
-			<div className="profile">
-				<textarea value={this.props.query}>
-				</textarea>
-			</div>)}
-}
 
 ReactDOM.render(
 	<Chrome />,
