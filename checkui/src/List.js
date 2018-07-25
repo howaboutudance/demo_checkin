@@ -1,11 +1,6 @@
 import React from 'react';
 import './demo.css';
-
-const api_version = "1.0"
-const host = "localhost"
-const port = "5000"
-
-const api_base_url = `http:////${host}:${port}/api/v${api_version}`
+import { api_base_url } from "./api_url";
 
 class List extends React.Component {
 	constructor(props){
@@ -19,7 +14,7 @@ class List extends React.Component {
 	handleCheck(i){
 		const cells = this.state.cells.slice();
 		return () => {
-			cells[i] = (cells[i] === null) ? "X": null;
+			cells[i] = (cells[i] === null) ? "✖️": null;
 			this.setState({cells: cells})
 		}
 	}
@@ -39,19 +34,26 @@ class List extends React.Component {
 			rv.push(<ListRow onQuery={this.props.onQuery} clickFunc={this.handleCheck(i)} key={i} rowData={this.state.rows[i]} cell={this.state.cells[i]}/>);
 		}
 
-		return <div className="list">{rv}</div>
+		return(
+		<div className="list">
+			<div className="list-content"> {rv}</div>
+			<div className="bottom-toolbar">
+				<button onClick={this.handleNext}>Next</button>
+				<button onClick={this.handlePrev}>Prev</button>
+			</div>
+		</div>
+
+		)
 	}
 }
 
 function ListRow(props){
 	return(
 		<div className="row"> 
-			<span>
-				<div className="checkbox" onClick = {props.clickFunc}>{props.cell}</div>
-				<div className="cell" anum={props.rowData.anum} onClick = {() => props.onQuery(props.rowData.anum)}>
-					{props.rowData.firstName} {props.rowData.lastName}
-				</div>
-			</span>
+			<div className="checkbox" onClick = {props.clickFunc}>{props.cell}</div>
+			<div className="cell" anum={props.rowData.anum} onClick = {() => props.onQuery(props.rowData.anum)}>
+				{props.rowData.firstName} {props.rowData.lastName}
+			</div>
 		</div>
 	)
 }

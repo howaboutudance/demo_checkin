@@ -1,4 +1,13 @@
+body {
+	margin: 0 0;
+	padding: 0;
+}
+.sheet > div {
+	margin: 5px;
+}
 .row {
+	display: grid;
+	grid-template-columns: 40px 2fr 1fr;
 	margin: 1px 0;
 	padding: 1px;
 	width: 100%;
@@ -6,29 +15,39 @@
 	border: 1px solid black;
 }
 
+.toolbar {
+	position: absolute; 
+	bottom: 0px;
+	width: 100%;
+	background: gray;
+}
+.toolbar > div {
+	color: white;
+}
+
+.row > div {
+	margin: 5px;
+}
+
 .checkbox {
 	height: 30px;
 	width: 30px;
-	margin: 5px;
 	border: 1px solid black;
-	float:left;
 	text-align: center;
+	font-size: 16pt;
 }
 
 .cell {
-	float:left;
+	text-align: left;
 }
 
 .list {
-	width: 500px;
-	float: left;
+	grid-area: list;
 }
 
 .profile {
-	margin: 1px 5px;
-	float: left;
+	grid-area: profile;
 	border: 1px solid black;
-	width: 500px;
 	height: 226px;
 	overflow: hidden;
 	padding: 3px 3px;
@@ -38,4 +57,23 @@
 	resize: none;
 	height:100%;
 	width:100%;
+}
+
+.sheet {
+	display: grid;
+	column-gap: 3px;
+	grid-template-rows: repeat(2, 1fr);
+	grid-template-rows: 1fr;
+	grid-template-areas:
+	"profile"
+	"list"
+}
+@media only screen and (min-width: 900px) {
+	.sheet {
+		display: grid;
+		column-gap: 3px;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-areas:
+		"list profile"
+	}
 }

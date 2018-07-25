@@ -3,11 +3,8 @@ import ReactDOM from 'react-dom';
 import './demo.css';
 import { List } from './List';
 import { Profile } from './Profile';
+import { api_base_url } from "./api_url";
 
-const host = "localhost"
-const port = "5000"
-const api_version = "1.0"
-const api_base_url = `http:////${host}:${port}/api/v${api_version}`
 class Chrome extends React.Component {
 	constructor(props){
 		super(props);
@@ -23,7 +20,7 @@ class Chrome extends React.Component {
 				return resp.json();
 			})
 			.then((data) => {
-				this.setState({query: JSON.stringify(data.student)})
+				this.setState({query: JSON.stringify(data.student,null, 2)})
 			});
 		}
 	handleQueryClick(e){
@@ -32,16 +29,26 @@ class Chrome extends React.Component {
 
 		
 		return (
-			<div className="sheet">
+			<article className="sheet">
 				<List onQuery={this.handleQuery} />
 				<Profile query={this.state.query}/>
-			</div>
+			</article>
 		);
+	}
+}
+
+class Bottom extends React.Component {
+	render() {
+		return <footer className="toolbar"><div>Admin</div></footer>
 	}
 }
 
 
 ReactDOM.render(
-	<Chrome />,
+	<React.Fragment>	
+		<Bottom />
+		<Chrome />
+	</React.Fragment>,
 	document.getElementById('root'),
 );
+
