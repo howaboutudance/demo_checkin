@@ -37,7 +37,7 @@ class List extends React.Component {
 		return(
 		<div className="list">
 			<div className="list-content"> {rv}</div>
-			<div className="bottom-toolbar">
+			<div className="list-bottom-toolbar">
 				<button onClick={this.handleNext}>Next</button>
 				<button onClick={this.handlePrev}>Prev</button>
 			</div>
