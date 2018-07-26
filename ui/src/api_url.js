@@ -1,5 +1,3 @@
-import React from 'react'
-
 const host = "localhost"
 const port = "5000"
 const api_version = "1.0"
