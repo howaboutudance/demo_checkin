@@ -5,6 +5,7 @@ import { List } from './List';
 import { Profile } from './Profile';
 import { api_base_url } from "./api_url";
 
+
 class Chrome extends React.Component {
 	constructor(props){
 		super(props);
@@ -20,7 +21,7 @@ class Chrome extends React.Component {
 				return resp.json();
 			})
 			.then((data) => {
-				this.setState({query: JSON.stringify(data.student,null, 2)})
+				this.setState({query: data.student})
 			});
 		}
 	handleQueryClick(e){
@@ -31,7 +32,7 @@ class Chrome extends React.Component {
 		return (
 			<article className="sheet">
 				<List onQuery={this.handleQuery} />
-				<Profile query={this.state.query}/>
+				<Profile className="profile" query={this.state.query}/>
 			</article>
 		);
 	}
