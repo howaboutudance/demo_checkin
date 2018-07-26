@@ -48,4 +48,12 @@ def test_login_post(client):
     rv = client.post("/api/v1.0/auth/login", json = {"username":"dota", "password":"L33t"})
     json_data = rv.get_json()
     assert "apikey" in json_data
+def test_students_limit(client):
+    rv = client.get("/api/v1.0/students?limit=1")
+    json_data = rv.get_json()
+    assert len(json_data["students"]) == 1
 
+def test_student_limit(client):
+    rv = client.get("/api/v1.0/students?offset=1")
+    json_data = rv.get_json()
+    assert len(json_data["students"]) == 1

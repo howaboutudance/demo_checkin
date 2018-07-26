@@ -71,9 +71,20 @@ def delete_student(anum):
 
 @bp.route('', methods=['GET'])
 def get_students():
+    params = request.args
+
     cur = get_db().cursor()
+    query_str = "SELECT * FROM student"
+
+    if params.get("limit"):
+        query_str += " LIMIT {}".format(params.get("limit"))
+
+    if params.get("offset"):
+        query_str += " OFFSET {}".format(params.get("offset"))
+
     cur.execute(
-            "SELECT * FROM student")
+        query_str
+           ) 
     pre = cur.fetchall()
     return(tag_many("students", student_fields, pre))
 
