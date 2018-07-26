@@ -60,5 +60,10 @@ INSERT INTO student(anum, firstname, lastname) values
 	('A4','Adam','King'),
 	('A5', 'Jacob','Lambert');
 INSERT INTO preferredname(anum, pronouns) values
-	('A5', 'he/his')
+	('A5', 'he/his');
 
+INSERT INTO session(name, location) values
+	('Orientation Seminar', 'SEM II A1107'),
+	('First Peoples Reception','LIB 4300'),
+	('Trans and Queer Cetner Reception','LIB 4300'),
+	('Better Reading Through Writing','LIB 3301');

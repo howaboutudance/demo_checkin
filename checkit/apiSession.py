@@ -12,10 +12,13 @@ faculty_fields = ["id","name"]
 # session methods
 @bp.route("/<string:sessionid>", methods=["GET"])
 def get_session(sessionid):
+
     cur = get_db().cursor()
-    cur.execute("""select id, name, location, starttime, length, kind, seats,
+    query_str = """select id, name, location, starttime, length, kind, seats,
                         (select count(id) from studentsession sus where sus.session_id = se.id)
-                        from session se where se.id = %s""", (int(sessionid),))
+                        from session se where se.id = %s"""
+
+    cur.execute(query_str, (int(sessionid),))
     try:
         session_basic = dict(zip(session_fields, cur.fetchone()))
     except TypeError:
@@ -50,8 +53,12 @@ def put_session(sessionid):
     qvalues = ",".join(map(qiy, js.items()))
     cur.execute("update session set {0} where id = {1}".format(qvalues, queryify(sessionid)))
     conn.commit()
-        
-    return(jsonify({"status":"ok"})) 
+
+    resp = {"success":"ok"} 
+    if "id" in js:
+        resp["new_id"] = js["id"]
+
+    return(jsonify(resp)) 
 
 @bp.route("/<string:sessionid>",methods=["DELETE"])
 def delete_session(sessionid):
@@ -68,14 +75,44 @@ def delete_session(sessionid):
 
 @bp.route("", methods=["GET"])
 def get_sessions():
+    params = request.args
     cur = get_db().cursor()
-    cur.execute("""select id, name, location, starttime, length, kind, seats,
+
+    query_str = """select id, name, location, starttime, length, kind, seats,
                         (select count(id) from studentsession sus where sus.session_id = ss.id)
-                        from session ss""")
+                        from session ss"""
+
+    if params.get("limit"):
+        query_str += " LIMIT {}".format(params.get("limit"))
+
+    if params.get("offset"):
+        query_str += " OFFSET {}".format(params.get("offset"))
+
+    cur.execute(query_str)
     pre = cur.fetchall()
     return tag_many("sessions",session_fields, pre)
 
-@bp.route("", methods=["POST","PUT","PATCH","DELETE"])
+@bp.route("", methods=["POST"])
+def add_session_root():
+    js = request.get_json()
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("SELECT last_value FROM session_id_seq")
+    next_id = int(cur.fetchone()[0]) + 1
+    js["id"] = next_id
+
+    if (not "seats" in js) or (js["seats"] == ""):
+        js["seats"] = None
+    try:
+        cur.execute("INSERT INTO session(id, name, location, length, starttime, seats, kind) VALUES (%(id)s, %(name)s, %(location)s, %(length)s , %(starttime)s, %(seats)s, %(kind)s)", js)
+        conn.commit()
+    except pg.IntegrityError:
+        return jsonify({"error":"400","message":"key exists"}),400
+
+    return jsonify({"success":"ok", "id":next_id}), 201
+
+@bp.route("", methods=["PUT","PATCH","DELETE"])
 def no_access_sessions():
     abort(405)
 #errorhandlers
