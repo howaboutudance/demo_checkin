@@ -6,7 +6,6 @@ import psycopg2 as pg
 from checkit.db import get_db
 bp  = Blueprint('apisession', __name__, url_prefix='/api/v1.0/sessions')
 
-schedule_fields = ["session_id","name","starttime","location","length"]
 session_fields = ["id","name","location","starttime","length", "kind","total_seats","seats_taken"]
 faculty_fields = ["id","name"]
 

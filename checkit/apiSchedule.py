@@ -3,6 +3,8 @@ from checkit.apiUtils import *
 from checkit.db import get_db
 bp  = Blueprint('apischedule', __name__, url_prefix='/api/v1.0/schedules')
 
+schedule_fields = ["session_id","name","starttime","location","length"]
+
 @bp.route("/<string:anum>", methods=["GET"])
 def get_schedule(anum):
     cur = get_db().cursor()
