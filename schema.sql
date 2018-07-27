@@ -1,12 +1,3 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS preferredname;
-DROP TABLE IF EXISTS session;
-DROP TABLE IF EXISTS studentsession;
-DROP TABLE IF EXISTS faculty;
-DROP TABLE IF EXISTS facultyteam;
-
-DROP TYPE IF EXISTS session_kind;
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
@@ -53,5 +44,10 @@ CREATE TABLE IF NOT EXISTS facultyteam (
        session_id INT,
        faculty_id INT
 );
+CREATE TABLE IF NOT EXISTS form {
+	id serial NOT NULL PRIMARY KEY,
+	schema json,
+	uischema json
+}
 COMMIT;
 

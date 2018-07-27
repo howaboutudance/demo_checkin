@@ -29,4 +29,6 @@ def create_app(test_config=None):
     app.register_blueprint(apiSchedule.bp)
     from . import apiAuth
     app.register_blueprint(apiAuth.bp)
+    from . import apiForms
+    app.register_blueprint(apiForms.bp)
     return app

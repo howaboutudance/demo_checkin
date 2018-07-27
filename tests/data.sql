@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS session;
 DROP TABLE IF EXISTS studentsession;
 DROP TABLE IF EXISTS faculty;
 DROP TABLE IF EXISTS facultyteam;
+DROP TABLE IF EXISTS form;
 
 DROP TYPE IF EXISTS session_kind;
 
@@ -54,6 +55,13 @@ CREATE TABLE IF NOT EXISTS facultyteam (
        faculty_id INT
 );
 
+CREATE TABLE IF NOT EXISTS form (
+	id serial NOT NULL PRIMARY KEY,
+	name varchar(40),
+	schema json,
+	uischema json
+);
+
 COMMIT;
 
 INSERT INTO student(anum, firstname, lastname) values 
@@ -67,3 +75,5 @@ INSERT INTO session(name, location) values
 	('First Peoples Reception','LIB 4300'),
 	('Trans and Queer Cetner Reception','LIB 4300'),
 	('Better Reading Through Writing','LIB 3301');
+INSERT INTO form(id, name, schema) VALUES
+	(1, 'profile', '{ "title": "Student Details", "type": "object", "required": ["title"], "properties": { "firstName": {"type": "string", "title": "First Name", "default": "First"}, "lastName": {"type": "string", "title": "Last Name", "default": "Last"}, "preferredFirstName": {"type":"string", "title":"Preferred Name", "default":"Preferred"}, "pronoun": {"type": "string", "title": "Pronoun", "default":"Pronoun"} } }');
